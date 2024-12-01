@@ -12,7 +12,21 @@ namespace MineSweeper
 
         public void PrintBoard(char[,] board)
         {
-            Console.WriteLine(topLine);
+            for (int i = 0; i < topLine.Length; i++)
+            {
+                if (char.IsLetter(topLine[i]))
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(topLine[i].ToString());
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.Write(topLine[i].ToString());
+                }
+            }
+            Console.WriteLine();
+
             for (int j = 0; j < topLine.Length; j++)
             {
                 Console.Write("-");
@@ -21,7 +35,9 @@ namespace MineSweeper
 
             for (int i = 0; i < board.GetLength(0); i++)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write($"{i + 1} ");
+                Console.ForegroundColor = ConsoleColor.White;
                 for (int j = 0; j < board.GetLength(1); j++)
                 {
                     Console.Write(" | " + (char)board[i, j]);

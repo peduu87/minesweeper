@@ -4,6 +4,13 @@
     {
         static void Main(string[] args)
         {
+            string appVersion = "0.3";
+
+            Console.Title = $"Peduu's Minesweeper | version {appVersion}";
+
+            BoardManager boardManager = new BoardManager();
+            BoardPrinter boardPrinter = new BoardPrinter();
+
             Console.WriteLine("   _  _      _  _      _  _     __      __       .__                                   _  _      _  _      _  _   ");
             Console.WriteLine("__| || |____| || |____| || |__ /  \\    /  \\ ____ |  |   ____  ____   _____   ____   __| || |____| || |____| || |__");
             Console.WriteLine("\\   __   /\\   __   /\\   __   / \\   \\/\\/   // __ \\|  | _/ ___\\/  _ \\ /     \\_/ __ \\  \\   __   /\\   __   /\\   __   /");
@@ -11,10 +18,7 @@
             Console.WriteLine("/_  ~~  _\\/_  ~~  _\\/_  ~~  _\\   \\__/\\  /  \\___  >____/\\___  >____/|__|_|  /\\___  > /_  ~~  _\\/_  ~~  _\\/_  ~~  _\\");
             Console.WriteLine("  |_||_|    |_||_|    |_||_|          \\/       \\/          \\/            \\/     \\/    |_||_|    |_||_|    |_||_|  ");
 
-            Console.WriteLine("\nPeduu's Minesweeper V1.0\n\n");
-
-            BoardManager boardManager = new BoardManager();
-            BoardPrinter boardPrinter = new BoardPrinter();
+            Console.WriteLine($"\nPeduu's Minesweeper V{appVersion}\n\n");
 
             boardPrinter.PrintBoard(boardManager.CreateEmptyViewBoard());
 
@@ -27,7 +31,8 @@
             {
                 if (!answerLoopCheck)
                 {
-                    Console.WriteLine("\nInvalid cell value.\n");
+                    Console.WriteLine("\nInvalid cell value.\n\n");
+                    boardPrinter.PrintBoard(boardManager.CreateEmptyViewBoard());
                     Console.WriteLine("\nSelect a cell to start (line and column, example: 1A):");
                 }
                 startingCoord = Console.ReadLine();
@@ -75,7 +80,7 @@
                 }
             }
 
-
+            char[,] viewBoard = boardManager.CreateEmptyViewBoard();
         }
     }
 }

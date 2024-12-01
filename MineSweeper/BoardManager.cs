@@ -20,7 +20,7 @@ namespace MineSweeper
             {
                 for (int j = 0; j < board.GetLength(1); j++)
                 {
-                    board[i, j] = 'O';
+                    board[i, j] = ' ';
                 }
             }
 
@@ -31,22 +31,7 @@ namespace MineSweeper
         {
             Random rdn = new Random();
 
-            int[] iStartingCoord = new int[2];
-
-            for(int i = 0; i < boardLines.Length; i++)
-            {
-                if (int.Parse(startingCoord[0].ToString()) == int.Parse(boardLines[i].ToString()))
-                {
-                    iStartingCoord[0] = i;
-                }
-            }
-            for (int i = 0; i < boardLines.Length; i++)
-            {
-                if (startingCoord.ToUpper()[1] == boardColumns[i])
-                {
-                    iStartingCoord[1] = i;
-                }
-            }
+            int[] iStartingCoord = ConvertCoordinates(startingCoord);
 
             //Console.WriteLine($"{iStartingCoord[0]}, {iStartingCoord[1]}");
 
@@ -106,6 +91,10 @@ namespace MineSweeper
                             gameBoard[i, j] = char.Parse(mineCounter.ToString());
 
                         }
+                        else
+                        {
+                            gameBoard[i, j] = 'O';
+                        }
                     }
                 }
             }
@@ -157,6 +146,28 @@ namespace MineSweeper
             }
 
             return false;
+        }
+
+        public int[] ConvertCoordinates(string coord) 
+        {
+            int[] iCoord = new int[2];
+
+            for (int i = 0; i < boardLines.Length; i++)
+            {
+                if (int.Parse(coord[0].ToString()) == int.Parse(boardLines[i].ToString()))
+                {
+                    iCoord[0] = i;
+                }
+            }
+            for (int i = 0; i < boardLines.Length; i++)
+            {
+                if (coord.ToUpper()[1] == boardColumns[i])
+                {
+                    iCoord[1] = i;
+                }
+            }
+
+            return iCoord;
         }
     }
 }
