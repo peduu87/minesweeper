@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace MineSweeper
 {
-    public class BoardManager
+    internal class BoardManager
     {
+        // This will ease the process of converting user coordinates to array coordinates.
         char[] boardLines = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         char[] boardColumns = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
 
-        public char[,] CreateEmptyViewBoard()
+        public char[,] CreateEmptyViewBoard() // Creates an array (board) and fill it with dots so the player can choose where to start.
         {
             char[,] board = new char[9, 9];
 
@@ -49,9 +50,7 @@ namespace MineSweeper
 
             //Console.WriteLine($"{iStartingCoord[0]}, {iStartingCoord[1]}");
 
-            //char[,] mineBoard = new char[9, 9];
-
-            char[,] mineBoard = CreateEmptyViewBoard(); // Temporary solution to view the board.
+            char[,] mineBoard = CreateEmptyViewBoard(); // Improvised solution to view the board.
 
             int mineCounter = 0;
 
@@ -81,10 +80,42 @@ namespace MineSweeper
             return mineBoard;
         }
 
-        
-
-        internal int CheckAdjacentCell(char[,] mineBoard, int[] adjCellCoord)
+        public char[,] GenerateGameBoard(char[,] mineBoard)
         {
+            char[,] gameBoard = mineBoard;
+
+            for(int i = 0; i < mineBoard.GetLength(0); i++)
+            {
+                for(int j = 0; j <mineBoard.GetLength(1); j++)
+                {
+                    if (mineBoard[i, j] != 'M')
+                    {
+                        int mineCounter = 0;
+
+                        mineCounter += CheckAdjacentCell(mineBoard, i - 1, j - 1);
+                        mineCounter += CheckAdjacentCell(mineBoard, i - 1, j);
+                        mineCounter += CheckAdjacentCell(mineBoard, i - 1, j + 1);
+                        mineCounter += CheckAdjacentCell(mineBoard, i, j - 1);
+                        mineCounter += CheckAdjacentCell(mineBoard, i, j + 1);
+                        mineCounter += CheckAdjacentCell(mineBoard, i + 1, j - 1);
+                        mineCounter += CheckAdjacentCell(mineBoard, i + 1, j);
+                        mineCounter += CheckAdjacentCell(mineBoard, i + 1, j + 1);
+
+                        if(mineCounter > 0)
+                        {
+                            gameBoard[i, j] = char.Parse(mineCounter.ToString());
+
+                        }
+                    }
+                }
+            }
+
+            return gameBoard;
+        }
+
+        internal int CheckAdjacentCell(char[,] mineBoard, int adjCellLine, int adjCellCol)
+        {
+            int[] adjCellCoord = { adjCellLine, adjCellCol };
             try
             {
                 if (mineBoard[adjCellCoord[0], adjCellCoord[1]] == 'M')
@@ -99,30 +130,6 @@ namespace MineSweeper
             catch
             {
                 return 0;
-            }
-        }
-
-        public void PrintBoard(char[,] board)
-        {
-            string topLine = "    | A | B | C | D | E | F | G | H | I |"; // 4 spaces.
-            Console.WriteLine(topLine + "\n");
-
-            for (int i = 0; i < board.GetLength(0); i++)
-            {
-                Console.Write($"{i + 1}   | ");
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    Console.Write((char)board[i, j] + " | ");
-                }
-                Console.WriteLine();
-                if(i < board.GetLength(0) - 1)
-                {
-                    for (int j = 0; j < topLine.Length; j++)
-                    {
-                        Console.Write("-");
-                    }
-                    Console.WriteLine();
-                }
             }
         }
 
