@@ -21,6 +21,7 @@
             Console.WriteLine("\nSelect a cell to start (line and column, example: 1A):");
 
             bool answerLoopCheck = true;
+            string startingCoord;
 
             while (true)
             {
@@ -29,12 +30,9 @@
                     Console.WriteLine("\nInvalid cell value.\n");
                     Console.WriteLine("\nSelect a cell to start (line and column, example: 1A):");
                 }
-                string startingCoord = Console.ReadLine();
+                startingCoord = Console.ReadLine();
                 if (boardManager.CheckCoordinates(startingCoord))
                 {
-                    char[,] mineBoard = boardManager.GenerateMineBoard(startingCoord);
-                    boardPrinter.PrintBoard(mineBoard);
-                    boardPrinter.PrintBoard(boardManager.GenerateGameBoard(mineBoard));
                     answerLoopCheck = true;
                     break;
                 }
@@ -43,6 +41,41 @@
                     answerLoopCheck = false;
                 }
             }
+
+            answerLoopCheck = true;
+
+            Console.WriteLine("\nInsert the amount of mines in the board (1-30):");
+
+            while (true)
+            {
+                if (!answerLoopCheck)
+                {
+                    Console.WriteLine("\nInvalid value.\n");
+                    Console.WriteLine("\nInsert the amount of mines in the board (1-30):");
+                }
+                string sMineAmount = Console.ReadLine();
+
+                if (int.TryParse(sMineAmount, out int mineAmount))
+                {
+                    if (mineAmount > 0 && mineAmount < 30)
+                    {
+                        char[,] mineBoard = boardManager.GenerateMineBoard(startingCoord, mineAmount);
+                        char[,] gameBoard = boardManager.GenerateGameBoard(mineBoard);
+                        answerLoopCheck = true;
+                        break;
+                    }
+                    else
+                    {
+                        answerLoopCheck = false;
+                    }
+                }
+                else
+                {
+                    answerLoopCheck = false;
+                }
+            }
+
+
         }
     }
 }
