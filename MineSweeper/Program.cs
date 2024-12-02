@@ -53,6 +53,8 @@
 
             Console.WriteLine("\nInsert the amount of mines in the board (1-30):");
 
+            char[,] gameBoard = new char[boardManager.CreateEmptyViewBoard().GetLength(0), boardManager.CreateEmptyViewBoard().GetLength(1)];
+
             while (true)
             {
                 if (!answerLoopCheck)
@@ -67,7 +69,7 @@
                     if (mineAmount > 0 && mineAmount < 30)
                     {
                         char[,] mineBoard = boardManager.GenerateMineBoard(startingCoord, mineAmount);
-                        char[,] gameBoard = boardManager.GenerateGameBoard(mineBoard);
+                        gameBoard = boardManager.GenerateGameBoard(mineBoard);
                         answerLoopCheck = true;
                         break;
                     }
@@ -83,7 +85,13 @@
             }
 
             char[,] viewBoard = boardManager.CreateEmptyViewBoard();
+            viewBoard[startingCoord[0], startingCoord[1]] = gameBoard[startingCoord[0], startingCoord[1]];
 
+            boardPrinter.PrintBoard(viewBoard);
+            
+            short gameStatus = 0; // 0 while playing, -1 if the player lose and 1 if he win.
+
+            while (gameStatus == 0)
         }
     }
 }
