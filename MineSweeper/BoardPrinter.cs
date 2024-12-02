@@ -8,6 +8,8 @@ namespace MineSweeper
 {
     internal class BoardPrinter
     {
+        ConsoleTextManager textManager = new ConsoleTextManager();
+
         private string topLine = "   | A | B | C | D | E | F | G | H | I "; // 3 spaces.
 
         public void PrintBoard(char[,] board)
@@ -16,9 +18,7 @@ namespace MineSweeper
             {
                 if (char.IsLetter(topLine[i]))
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write(topLine[i].ToString());
-                    Console.ForegroundColor = ConsoleColor.White;
+                    textManager.TextWrite(topLine[i].ToString(), 'g');
                 }
                 else
                 {
@@ -35,9 +35,8 @@ namespace MineSweeper
 
             for (int i = 0; i < board.GetLength(0); i++)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"{i + 1} ");
-                Console.ForegroundColor = ConsoleColor.White;
+                textManager.TextWrite($"{i + 1} ", 'g');
+
                 for (int j = 0; j < board.GetLength(1); j++)
                 {
                     Console.Write(" | " + (char)board[i, j]);

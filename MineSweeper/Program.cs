@@ -92,6 +92,9 @@
             short gameStatus = 0; // 0 while playing, -1 if the player lose and 1 if he win.
 
             while (gameStatus == 0)
+            {
+
+            }
         }
     }
 }

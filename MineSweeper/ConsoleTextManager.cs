@@ -8,7 +8,7 @@ namespace MineSweeper
 {
     internal class ConsoleTextManager
     {
-        public static void Write(string output, char color = 'w')
+        public void TextWrite(string output, char color = 'w')
         {
             switch (color)
             {
@@ -37,7 +37,7 @@ namespace MineSweeper
         }
 
 
-        public static void WriteLine(string output, char color = 'w')
+        public void TextWriteLine(string output, char color = 'w')
         {
             switch (color)
             {
