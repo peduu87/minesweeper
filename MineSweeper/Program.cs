@@ -25,7 +25,8 @@
             Console.WriteLine("\nSelect a cell to start (line and column, example: 1A):");
 
             bool answerLoopCheck = true;
-            string startingCoord;
+            string sStartingCoord;
+            int[] startingCoord = new int[2];
 
             while (true)
             {
@@ -35,9 +36,10 @@
                     boardPrinter.PrintBoard(boardManager.CreateEmptyViewBoard());
                     Console.WriteLine("\nSelect a cell to start (line and column, example: 1A):");
                 }
-                startingCoord = Console.ReadLine();
-                if (boardManager.CheckCoordinates(startingCoord))
+                sStartingCoord = Console.ReadLine();
+                if (boardManager.CheckCoordinates(sStartingCoord))
                 {
+                    startingCoord = boardManager.ConvertCoordinates(sStartingCoord);
                     answerLoopCheck = true;
                     break;
                 }
@@ -81,6 +83,7 @@
             }
 
             char[,] viewBoard = boardManager.CreateEmptyViewBoard();
+
         }
     }
 }

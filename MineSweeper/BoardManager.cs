@@ -27,15 +27,11 @@ namespace MineSweeper
             return board;
         }
 
-        public char[,] GenerateMineBoard(string startingCoord, int mineAmount = 10)
+        public char[,] GenerateMineBoard(int[] startingCoord, int mineAmount = 10)
         {
             Random rdn = new Random();
 
-            int[] iStartingCoord = ConvertCoordinates(startingCoord);
-
-            //Console.WriteLine($"{iStartingCoord[0]}, {iStartingCoord[1]}");
-
-            char[,] mineBoard = CreateEmptyViewBoard(); // Improvised solution to view the board.
+            char[,] mineBoard = CreateEmptyViewBoard();
 
             int mineCounter = 0;
 
@@ -45,7 +41,7 @@ namespace MineSweeper
                 {
                     for (int j = 0; j < mineBoard.GetLength(1); j++)
                     {
-                        if ((iStartingCoord[0] != i && iStartingCoord[1] != j) || mineBoard[i, j] != 'M')
+                        if ((startingCoord[0] != i && startingCoord[1] != j) || mineBoard[i, j] != 'M')
                         {
                             if (rdn.Next(0, 10) == 1 && mineAmount != mineCounter)
                             {
