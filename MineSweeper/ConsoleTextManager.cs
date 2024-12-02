@@ -35,9 +35,9 @@ namespace MineSweeper
             Console.Write(output);
             Console.ForegroundColor = ConsoleColor.White;
         }
-    }
 
-    public static void WriteLine(string output, char color = 'w')
+
+        public static void WriteLine(string output, char color = 'w')
         {
             switch (color)
             {
