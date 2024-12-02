@@ -12,8 +12,13 @@ namespace MineSweeper
 
         private string topLine = "   | A | B | C | D | E | F | G | H | I "; // 3 spaces.
 
-        public void PrintBoard(char[,] board)
+        public void PrintBoard(char[,] board, bool upPadding = true)
         {
+            if (upPadding)
+            {
+                Console.WriteLine("\n\n\n");
+            }
+
             for (int i = 0; i < topLine.Length; i++)
             {
                 if (char.IsLetter(topLine[i]))
@@ -47,6 +52,35 @@ namespace MineSweeper
                     Console.WriteLine(GetDashLine(topLine));
                 }
             }
+        }
+
+        public void PrintGameInfo(char[,] viewBoard, char[,] gameBoard)
+        {
+            int mineAmount = 0, flagAmount = 0;
+
+            for (int i = 0; i < gameBoard.GetLength(0); i++)
+            {
+                for (int j = 0; j < gameBoard.GetLength(1); j++)
+                {
+                    if (gameBoard[i, j] == 'M')
+                    {
+                        mineAmount++;
+                    }
+                }
+            }
+
+            for (int i = 0; i < viewBoard.GetLength(0); i++)
+            {
+                for (int j = 0; j < viewBoard.GetLength(1); j++)
+                {
+                    if (viewBoard[i, j] == 'F')
+                    {
+                        flagAmount++;
+                    }
+                }
+            }
+
+            Console.WriteLine($"\nFlags placed: {flagAmount}.\tExpected mines remaining: {mineAmount - flagAmount}.");
         }
 
         private string GetDashLine(string referenceLine)

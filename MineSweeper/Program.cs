@@ -18,10 +18,9 @@
             Console.WriteLine(" |  ||  |  |  ||  |  |  ||  |   \\        /\\  ___/|  |_\\  \\__(  <_> )  Y Y  \\  ___/   |  ||  |  |  ||  |  |  ||  | ");
             Console.WriteLine("/_  ~~  _\\/_  ~~  _\\/_  ~~  _\\   \\__/\\  /  \\___  >____/\\___  >____/|__|_|  /\\___  > /_  ~~  _\\/_  ~~  _\\/_  ~~  _\\");
             Console.WriteLine("  |_||_|    |_||_|    |_||_|          \\/       \\/          \\/            \\/     \\/    |_||_|    |_||_|    |_||_|  ");
-
             Console.WriteLine($"\nPeduu's Minesweeper V{appVersion}\n\n");
 
-            boardPrinter.PrintBoard(boardManager.CreateEmptyViewBoard());
+            boardPrinter.PrintBoard(boardManager.CreateEmptyViewBoard(), false);
 
             Console.WriteLine("\nSelect a cell to start (line and column, example: 1A):");
 
@@ -31,15 +30,19 @@
             while (true)
             {
                 sStartingCoord = Console.ReadLine();
+
                 if (boardManager.CheckCoordinates(sStartingCoord))
                 {
                     startingCoord = boardManager.ConvertCoordinates(sStartingCoord);
+
                     break;
                 }
                 else
                 {
                     textManager.TextWriteLine("\n\n\n\nInvalid cell value.\n\n", 'r');
+
                     boardPrinter.PrintBoard(boardManager.CreateEmptyViewBoard());
+
                     Console.WriteLine("\nSelect a cell to start (line and column, example: 1A):");
                 }
             }
@@ -54,10 +57,12 @@
 
                 if (int.TryParse(sMineAmount, out int mineAmount))
                 {
-                    if (mineAmount > 0 && mineAmount < 30)
+                    if (mineAmount > 0 && mineAmount <= 30)
                     {
                         char[,] mineBoard = boardManager.GenerateMineBoard(startingCoord, mineAmount);
+
                         gameBoard = boardManager.GenerateGameBoard(mineBoard);
+
                         break;
                     }
                     else
@@ -74,15 +79,44 @@
             }
 
             char[,] viewBoard = boardManager.CreateEmptyViewBoard();
+
             viewBoard[startingCoord[0], startingCoord[1]] = gameBoard[startingCoord[0], startingCoord[1]];
 
-            boardPrinter.PrintBoard(viewBoard);
-            
             short gameStatus = 0; // 0 while playing, -1 if the player lose and 1 if he win.
 
             while (gameStatus == 0)
             {
+                boardPrinter.PrintBoard(viewBoard);
+                boardPrinter.PrintGameInfo(viewBoard, gameBoard);
+                
+                Console.WriteLine("\nInsert an action:");
+                textManager.TextWriteLine("[O] Open cell\t[F] Place flag");
 
+                string playerAction;
+
+                while (true)
+                {
+                    playerAction = Console.ReadLine();
+
+                    if (boardManager.CheckAction(playerAction))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        textManager.TextWriteLine("\n\n\n\nInvalid action.\n\n", 'r');
+
+                        boardPrinter.PrintBoard(viewBoard);
+                        boardPrinter.PrintGameInfo(viewBoard, gameBoard);
+
+                        Console.WriteLine("\nInsert an action:");
+                        textManager.TextWriteLine("[O] Open cell\t[F] Place flag");
+                    }
+                }
+
+                
+                
+                break;
             }
         }
     }

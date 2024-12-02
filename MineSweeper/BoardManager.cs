@@ -41,7 +41,7 @@ namespace MineSweeper
                 {
                     for (int j = 0; j < mineBoard.GetLength(1); j++)
                     {
-                        if ((startingCoord[0] != i && startingCoord[1] != j) || mineBoard[i, j] != 'M')
+                        if ((startingCoord[0] != i && startingCoord[1] != j) && mineBoard[i, j] != 'M')
                         {
                             if (rdn.Next(0, 10) == 1 && mineAmount != mineCounter)
                             {
@@ -115,6 +115,54 @@ namespace MineSweeper
             catch
             {
                 return 0;
+            }
+        }
+
+        char[] standardAction = { 'O', 'F' };
+        string[] specialAction = { "87" };
+
+        public bool CheckAction(string action)
+        {
+            action = action.ToUpper();
+
+            if(action.Length < 1 || action.Length > 3)
+            {
+                return false;
+            }
+
+            if (action.Length == 1)
+            {
+                for (int i = 0; i < standardAction.Length; i++)
+                {
+                    if(action[0] == standardAction[i])
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if (action.Length >= 2)
+            {
+                for(int i = 0; i < specialAction.Length; i++)
+                {
+                    if(action == specialAction[i])
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public void PlayAction(char[,] viewBoard, char[,] gameBoard, string playerAction)
+        {
+            if (playerAction.Length == 1)
+            {
+
+            }
+            else
+            {
+
             }
         }
 
