@@ -10,6 +10,7 @@
 
             BoardManager boardManager = new BoardManager();
             BoardPrinter boardPrinter = new BoardPrinter();
+            ConsoleTextManager textManager = new ConsoleTextManager();
 
             Console.WriteLine("   _  _      _  _      _  _     __      __       .__                                   _  _      _  _      _  _   ");
             Console.WriteLine("__| || |____| || |____| || |__ /  \\    /  \\ ____ |  |   ____  ____   _____   ____   __| || |____| || |____| || |__");
@@ -24,32 +25,24 @@
 
             Console.WriteLine("\nSelect a cell to start (line and column, example: 1A):");
 
-            bool answerLoopCheck = true;
             string sStartingCoord;
             int[] startingCoord = new int[2];
 
             while (true)
             {
-                if (!answerLoopCheck)
-                {
-                    Console.WriteLine("\nInvalid cell value.\n\n");
-                    boardPrinter.PrintBoard(boardManager.CreateEmptyViewBoard());
-                    Console.WriteLine("\nSelect a cell to start (line and column, example: 1A):");
-                }
                 sStartingCoord = Console.ReadLine();
                 if (boardManager.CheckCoordinates(sStartingCoord))
                 {
                     startingCoord = boardManager.ConvertCoordinates(sStartingCoord);
-                    answerLoopCheck = true;
                     break;
                 }
                 else
                 {
-                    answerLoopCheck = false;
+                    textManager.TextWriteLine("\n\n\n\nInvalid cell value.\n\n", 'r');
+                    boardPrinter.PrintBoard(boardManager.CreateEmptyViewBoard());
+                    Console.WriteLine("\nSelect a cell to start (line and column, example: 1A):");
                 }
             }
-
-            answerLoopCheck = true;
 
             Console.WriteLine("\nInsert the amount of mines in the board (1-30):");
 
@@ -57,11 +50,6 @@
 
             while (true)
             {
-                if (!answerLoopCheck)
-                {
-                    Console.WriteLine("\nInvalid value.\n");
-                    Console.WriteLine("\nInsert the amount of mines in the board (1-30):");
-                }
                 string sMineAmount = Console.ReadLine();
 
                 if (int.TryParse(sMineAmount, out int mineAmount))
@@ -70,17 +58,18 @@
                     {
                         char[,] mineBoard = boardManager.GenerateMineBoard(startingCoord, mineAmount);
                         gameBoard = boardManager.GenerateGameBoard(mineBoard);
-                        answerLoopCheck = true;
                         break;
                     }
                     else
                     {
-                        answerLoopCheck = false;
+                        textManager.TextWriteLine("\n\n\n\nInvalid value.\n\n", 'r');
+                        Console.WriteLine("\nInsert the amount of mines in the board (1-30):");
                     }
                 }
                 else
                 {
-                    answerLoopCheck = false;
+                    textManager.TextWriteLine("\n\n\n\nInvalid value.\n\n", 'r');
+                    Console.WriteLine("\nInsert the amount of mines in the board (1-30):");
                 }
             }
 

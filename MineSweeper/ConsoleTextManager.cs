@@ -30,6 +30,9 @@ namespace MineSweeper
                 case 'y':
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
             }
 
             Console.Write(output);
@@ -58,6 +61,9 @@ namespace MineSweeper
                     break;
                 case 'y':
                     Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.White;
                     break;
             }
 
