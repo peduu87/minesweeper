@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            string appVersion = "0.3";
+            string appVersion = "1.0";
 
             Console.Title = $"Peduu's Minesweeper | version {appVersion}";
 
