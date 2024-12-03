@@ -51,11 +51,13 @@
 
             char[,] gameBoard = new char[boardManager.CreateEmptyViewBoard().GetLength(0), boardManager.CreateEmptyViewBoard().GetLength(1)];
 
+            int mineAmount = 0;
+
             while (true)
             {
                 string sMineAmount = Console.ReadLine();
 
-                if (int.TryParse(sMineAmount, out int mineAmount))
+                if (int.TryParse(sMineAmount, out mineAmount))
                 {
                     if (mineAmount > 0 && mineAmount <= 30)
                     {
@@ -83,6 +85,7 @@
             viewBoard[startingCoord[0], startingCoord[1]] = gameBoard[startingCoord[0], startingCoord[1]];
 
             short gameStatus = 0; // 0 while playing, -1 if the player lose and 1 if he win.
+            int openCellCounter = 1;
 
             while (gameStatus == 0)
             {
@@ -100,14 +103,14 @@
 
                     if (boardManager.CheckAction(playerAction))
                     {
-                        boardManager.PlayAction(viewBoard, gameBoard, playerAction);
+                        openCellCounter += boardManager.PlayAction(viewBoard, gameBoard, playerAction);
                         break;
                     }
                     else
                     {
                         textManager.TextWriteLine("\n\n\n\nInvalid action.\n\n", 'r');
 
-                        boardPrinter.PrintBoard(viewBoard);
+                        boardPrinter.PrintBoard(viewBoard, false);
                         boardPrinter.PrintGameInfo(viewBoard, gameBoard);
 
                         Console.WriteLine("\nInsert an action:");
@@ -130,11 +133,16 @@
                         break;
                     }
                 }
+
+                if(openCellCounter + mineAmount == gameBoard.GetLength(0) * gameBoard.GetLength(1))
+                {
+                    gameStatus = 1;
+                }
             }
 
             if(gameStatus == -1)
             {
-                textManager.TextWriteLine("\n\n\n\n* GAME OVER *", 'r');
+                textManager.TextWriteLine("\n\n\n\n* GAME OVER *\n\n", 'r');
 
                 boardPrinter.PrintBoard(gameBoard, false);
             }
@@ -149,6 +157,8 @@
                 textManager.TextWriteLine("  \\   /  ___) (___| (____/\\   | |   | (___) || ) \\ \\__   | |   ", 'g');
                 textManager.TextWriteLine("   \\_/   \\_______/(_______/   )_(   (_______)|/   \\__/   \\_/   ", 'g');
             }
+
+            Console.ReadKey();
         }
     }
 }

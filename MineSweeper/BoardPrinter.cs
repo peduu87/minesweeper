@@ -95,9 +95,9 @@ namespace MineSweeper
 
             Console.Write("\nFlags placed: ");
             textManager.TextWrite($"{flagAmount}", 'y');
-            Console.Write(".\tExpected mines remaining: ");
+            Console.Write("\nExpected mines remaining: ");
             textManager.TextWrite($"{mineAmount - flagAmount}", 'y');
-            Console.WriteLine(".");
+            Console.WriteLine("\n");
         }
 
         private string GetDashLine(string referenceLine)

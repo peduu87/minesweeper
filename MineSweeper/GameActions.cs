@@ -63,7 +63,7 @@ namespace MineSweeper
             return iCoord;
         }
 
-        public void openCell(char[,] viewBoard, char[,] gameBoard)
+        public bool openCell(char[,] viewBoard, char[,] gameBoard) // It will return a bool so the cell can be further count as open.
         {
             Console.WriteLine("\nSelect a cell to open (line and column, example: 1A):");
             textManager.TextWriteLine("Insert [CCC] to cancel the action.", 'd');
@@ -81,9 +81,17 @@ namespace MineSweeper
                 else if (CheckCoordinates(sCoord))
                 {
                     coord = ConvertCoordinates(sCoord);
-                    viewBoard[coord[0], coord[1]] = gameBoard[coord[0], coord[1]];
 
-                    break;
+                    if(viewBoard[coord[0], coord[1]] == 'F' || viewBoard[coord[0], coord[1]] == ' ')
+                    {
+                        viewBoard[coord[0], coord[1]] = gameBoard[coord[0], coord[1]];
+
+                        return true;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {
@@ -96,6 +104,8 @@ namespace MineSweeper
                     textManager.TextWriteLine("Insert [CCC] to cancel the action.", 'd');
                 }
             }
+
+            return false;
         }
 
         public void placeFlag(char[,] viewBoard, char[,] gameBoard)
@@ -116,8 +126,11 @@ namespace MineSweeper
                 else if (CheckCoordinates(sCoord))
                 {
                     coord = ConvertCoordinates(sCoord);
-                    viewBoard[coord[0], coord[1]] = 'F';
-
+                    if(viewBoard[coord[0], coord[1]] == ' ')
+                    {
+                        viewBoard[coord[0], coord[1]] = 'F';
+                    }
+                    
                     break;
                 }
                 else

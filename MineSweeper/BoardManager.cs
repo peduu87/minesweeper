@@ -155,7 +155,7 @@ namespace MineSweeper
             return false;
         }
 
-        public void PlayAction(char[,] viewBoard, char[,] gameBoard, string playerAction)
+        public short PlayAction(char[,] viewBoard, char[,] gameBoard, string playerAction)
         {
             playerAction = playerAction.ToUpper();
 
@@ -164,7 +164,10 @@ namespace MineSweeper
                 switch(playerAction[0])
                 {
                     case 'O':
-                        gameActions.openCell(viewBoard, gameBoard);
+                        if (gameActions.openCell(viewBoard, gameBoard))
+                        {
+                            return 1;
+                        }
                         break;
                     case 'F':
                         gameActions.placeFlag(viewBoard, gameBoard);
@@ -173,8 +176,13 @@ namespace MineSweeper
             }
             else
             {
-
+                if(playerAction == "87")
+                {
+                    
+                }
             }
+
+            return 0;
         }
 
         public bool CheckCoordinates(string coord)
