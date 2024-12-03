@@ -16,14 +16,14 @@ namespace MineSweeper
         {
             if (upPadding)
             {
-                Console.WriteLine("\n\n\n");
+                Console.WriteLine("\n\n\n\n");
             }
 
             for (int i = 0; i < topLine.Length; i++)
             {
                 if (char.IsLetter(topLine[i]))
                 {
-                    textManager.TextWrite(topLine[i].ToString(), 'g');
+                    textManager.TextWrite(topLine[i].ToString(), 'c');
                 }
                 else
                 {
@@ -40,11 +40,19 @@ namespace MineSweeper
 
             for (int i = 0; i < board.GetLength(0); i++)
             {
-                textManager.TextWrite($"{i + 1} ", 'g');
+                textManager.TextWrite($"{i + 1} ", 'c');
 
                 for (int j = 0; j < board.GetLength(1); j++)
                 {
-                    Console.Write(" | " + (char)board[i, j]);
+                    if(board[i,j] == 'F')
+                    {
+                        Console.Write(" | ");
+                        textManager.TextWrite(board[i, j].ToString(), 'r');
+                    }
+                    else
+                    {
+                        Console.Write(" | " + (char)board[i, j]);
+                    }
                 }
                 Console.WriteLine();
                 if (i < board.GetLength(0) - 1)
@@ -80,7 +88,11 @@ namespace MineSweeper
                 }
             }
 
-            Console.WriteLine($"\nFlags placed: {flagAmount}.\tExpected mines remaining: {mineAmount - flagAmount}.");
+            Console.Write("\nFlags placed: ");
+            textManager.TextWrite($"{flagAmount}", 'y');
+            Console.Write(".\tExpected mines remaining: ");
+            textManager.TextWrite($"{mineAmount - flagAmount}", 'y');
+            Console.WriteLine(".");
         }
 
         private string GetDashLine(string referenceLine)

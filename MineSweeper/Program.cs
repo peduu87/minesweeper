@@ -90,7 +90,7 @@
                 boardPrinter.PrintGameInfo(viewBoard, gameBoard);
                 
                 Console.WriteLine("\nInsert an action:");
-                textManager.TextWriteLine("[O] Open cell\t[F] Place flag");
+                textManager.TextWriteLine("[O] Open cell\t[F] Place flag", 'd');
 
                 string playerAction;
 
@@ -100,6 +100,7 @@
 
                     if (boardManager.CheckAction(playerAction))
                     {
+                        boardManager.PlayAction(viewBoard, gameBoard, playerAction);
                         break;
                     }
                     else
@@ -116,7 +117,7 @@
 
                 
                 
-                break;
+                
             }
         }
     }

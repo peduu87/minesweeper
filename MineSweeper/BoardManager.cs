@@ -9,8 +9,8 @@ namespace MineSweeper
     internal class BoardManager
     {
         // This will ease the process of converting user coordinates to array coordinates.
-        char[] boardLines = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        char[] boardColumns = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
+        private char[] boardLines = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        private char[] boardColumns = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' };
 
         public char[,] CreateEmptyViewBoard() // Creates an array (board) and fill it with dots so the player can choose where to start.
         {
@@ -121,6 +121,8 @@ namespace MineSweeper
         char[] standardAction = { 'O', 'F' };
         string[] specialAction = { "87" };
 
+        GameActions gameActions = new GameActions();
+
         public bool CheckAction(string action)
         {
             action = action.ToUpper();
@@ -129,8 +131,7 @@ namespace MineSweeper
             {
                 return false;
             }
-
-            if (action.Length == 1)
+            else if (action.Length == 1)
             {
                 for (int i = 0; i < standardAction.Length; i++)
                 {
@@ -156,9 +157,19 @@ namespace MineSweeper
 
         public void PlayAction(char[,] viewBoard, char[,] gameBoard, string playerAction)
         {
+            playerAction = playerAction.ToUpper();
+
             if (playerAction.Length == 1)
             {
-
+                switch(playerAction[0])
+                {
+                    case 'O':
+                        gameActions.openCell(viewBoard, gameBoard);
+                        break;
+                    case 'F':
+                        gameActions.placeFlag(viewBoard, gameBoard);
+                        break;
+                }
             }
             else
             {
