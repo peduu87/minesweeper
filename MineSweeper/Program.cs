@@ -114,10 +114,22 @@
                         textManager.TextWriteLine("[O] Open cell\t[F] Place flag");
                     }
                 }
+            }
 
-                
-                
-                
+            if(gameStatus == -1)
+            {
+                textManager.TextWriteLine("\n\n\n\n* GAME OVER *", 'r');
+
+                boardPrinter.PrintBoard(gameBoard, false);
+            }
+            else if(gameStatus == 1)
+            {
+                textManager.TextWriteLine("____   ____._______________________________ _______________.___.", 'g');
+                textManager.TextWriteLine("\\   \\ /   /|   \\_   ___ \\__    ___/\\_____  \\\\______   \\__  |   |", 'g');
+                textManager.TextWriteLine(" \\   Y   / |   /    \\  \\/ |    |    /   |   \\|       _//   |   |", 'g');
+                textManager.TextWriteLine("  \\     /  |   \\     \\____|    |   /    |    \\    |   \\\\____   |", 'g');
+                textManager.TextWriteLine("   \\___/   |___|\\______  /|____|   \\_______  /____|_  // ______|", 'g');
+                textManager.TextWriteLine("                       \\/                  \\/       \\/ \\/       ", 'g');
             }
         }
     }
