@@ -49,6 +49,11 @@ namespace MineSweeper
                         Console.Write(" | ");
                         textManager.TextWrite(board[i, j].ToString(), 'r');
                     }
+                    else if (board[i, j] == 'M')
+                    {
+                        Console.Write(" | ");
+                        textManager.TextWrite(board[i, j].ToString(), 'r');
+                    }
                     else
                     {
                         Console.Write(" | " + (char)board[i, j]);

@@ -114,6 +114,22 @@
                         textManager.TextWriteLine("[O] Open cell\t[F] Place flag");
                     }
                 }
+
+                for (int i = 0; i < viewBoard.GetLength(0); i++)
+                {
+                    for(int j = 0; j < viewBoard.GetLength(1); j++)
+                    {
+                        if (viewBoard[i, j] == 'M')
+                        {
+                            gameStatus = -1;
+                            break;
+                        }
+                    }
+                    if(gameStatus == -1)
+                    {
+                        break;
+                    }
+                }
             }
 
             if(gameStatus == -1)
@@ -124,12 +140,14 @@
             }
             else if(gameStatus == 1)
             {
-                textManager.TextWriteLine("____   ____._______________________________ _______________.___.", 'g');
-                textManager.TextWriteLine("\\   \\ /   /|   \\_   ___ \\__    ___/\\_____  \\\\______   \\__  |   |", 'g');
-                textManager.TextWriteLine(" \\   Y   / |   /    \\  \\/ |    |    /   |   \\|       _//   |   |", 'g');
-                textManager.TextWriteLine("  \\     /  |   \\     \\____|    |   /    |    \\    |   \\\\____   |", 'g');
-                textManager.TextWriteLine("   \\___/   |___|\\______  /|____|   \\_______  /____|_  // ______|", 'g');
-                textManager.TextWriteLine("                       \\/                  \\/       \\/ \\/       ", 'g');
+                textManager.TextWriteLine("         _________ _______ _________ _______  _______          ", 'g');
+                textManager.TextWriteLine("|\\     /|\\__   __/(  ____ \\\\__   __/(  ___  )(  ____ )|\\     /|", 'g');
+                textManager.TextWriteLine("| )   ( |   ) (   | (    \\/   ) (   | (   ) || (    )|( \\   / )", 'g');
+                textManager.TextWriteLine("| |   | |   | |   | |         | |   | |   | || (____)| \\ (_) / ", 'g');
+                textManager.TextWriteLine("( (   ) )   | |   | |         | |   | |   | ||     __)  \\   /  ", 'g');
+                textManager.TextWriteLine(" \\ \\_/ /    | |   | |         | |   | |   | || (\\ (      ) (   ", 'g');
+                textManager.TextWriteLine("  \\   /  ___) (___| (____/\\   | |   | (___) || ) \\ \\__   | |   ", 'g');
+                textManager.TextWriteLine("   \\_/   \\_______/(_______/   )_(   (_______)|/   \\__/   \\_/   ", 'g');
             }
         }
     }
