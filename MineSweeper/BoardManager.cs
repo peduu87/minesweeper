@@ -183,7 +183,9 @@ namespace MineSweeper
             {
                 if(playerAction == "87")
                 {
-                    
+                    BoardPrinter boardPrinter = new BoardPrinter();
+
+                    boardPrinter.PrintBoard(gameBoard);
                 }
             }
 

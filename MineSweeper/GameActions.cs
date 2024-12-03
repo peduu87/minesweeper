@@ -82,7 +82,7 @@ namespace MineSweeper
                 {
                     coord = ConvertCoordinates(sCoord);
 
-                    if(viewBoard[coord[0], coord[1]] == 'F' || viewBoard[coord[0], coord[1]] == ' ')
+                    if(viewBoard[coord[0], coord[1]] == ' ')
                     {
                         viewBoard[coord[0], coord[1]] = gameBoard[coord[0], coord[1]];
 
