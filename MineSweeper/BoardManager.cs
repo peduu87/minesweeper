@@ -43,7 +43,7 @@ namespace MineSweeper
                     {
                         if ((startingCoord[0] != i && startingCoord[1] != j) && mineBoard[i, j] != 'M')
                         {
-                            if (rdn.Next(0, 10) == 1 && mineAmount != mineCounter)
+                            if (rdn.Next(0, 15) == 1 && mineAmount != mineCounter)
                             {
                                 mineBoard[i, j] = 'M';
                                 mineCounter++;
@@ -118,7 +118,7 @@ namespace MineSweeper
             }
         }
 
-        char[] standardAction = { 'O', 'F' };
+        char[] standardAction = { 'O', 'A', 'F', 'R' };
         string[] specialAction = { "87" };
 
         GameActions gameActions = new GameActions();
@@ -169,8 +169,13 @@ namespace MineSweeper
                             return 1;
                         }
                         break;
+                    case 'A':
+                        return gameActions.OpenRemainingCells(viewBoard, gameBoard);
                     case 'F':
-                        gameActions.placeFlag(viewBoard, gameBoard);
+                        gameActions.PlaceFlag(viewBoard, gameBoard);
+                        break;
+                    case 'R':
+                        gameActions.RemoveFlag(viewBoard, gameBoard);
                         break;
                 }
             }

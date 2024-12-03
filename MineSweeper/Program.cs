@@ -93,7 +93,7 @@
                 boardPrinter.PrintGameInfo(viewBoard, gameBoard);
                 
                 Console.WriteLine("\nInsert an action:");
-                textManager.TextWriteLine("[O] Open cell\t[F] Place flag", 'd');
+                textManager.TextWriteLine("[O] Open cell\t[A] Open all remaining cells\n[F] Place flag\t[R] Remove flag", 'd');
 
                 string playerAction;
 
@@ -148,6 +148,8 @@
             }
             else if(gameStatus == 1)
             {
+                boardPrinter.PrintBoard(gameBoard);
+                Console.WriteLine();
                 textManager.TextWriteLine("         _________ _______ _________ _______  _______          ", 'g');
                 textManager.TextWriteLine("|\\     /|\\__   __/(  ____ \\\\__   __/(  ___  )(  ____ )|\\     /|", 'g');
                 textManager.TextWriteLine("| )   ( |   ) (   | (    \\/   ) (   | (   ) || (    )|( \\   / )", 'g');

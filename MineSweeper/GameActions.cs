@@ -108,7 +108,36 @@ namespace MineSweeper
             return false;
         }
 
-        public void placeFlag(char[,] viewBoard, char[,] gameBoard)
+        public short OpenRemainingCells(char[,] viewBoard, char[,] gameBoard)
+        {
+            Console.WriteLine("\nThis action will open all the remaining cells, except for the flags.");
+            textManager.TextWriteLine("Insert [CCC] to cancel the action or any other text to execute this.", 'd');
+
+            if(Console.ReadLine().ToUpper() == "CCC")
+            {
+                return 0;
+            }
+            else
+            {
+                short openCellCounter = 0;
+
+                for(int i = 0; i < gameBoard.GetLength(0); i++)
+                {
+                    for(int j = 0; j < gameBoard.GetLength(1); j++)
+                    {
+                        if (viewBoard[i, j] == ' ')
+                        {
+                            viewBoard[i, j] = gameBoard[i, j];
+                            openCellCounter++;
+                        }
+                    }
+                }
+
+                return openCellCounter;
+            }
+        }
+
+        public void PlaceFlag(char[,] viewBoard, char[,] gameBoard)
         {
             Console.WriteLine($"\nSelect a cell to place a flag (line and column, example: 1A):");
             textManager.TextWriteLine("Insert [CCC] to cancel the action.", 'd');
@@ -140,7 +169,45 @@ namespace MineSweeper
                     boardPrinter.PrintBoard(viewBoard, false);
                     boardPrinter.PrintGameInfo(viewBoard, gameBoard);
 
-                    Console.WriteLine("\nSelect a cell to open (line and column, example: 1A):");
+                    Console.WriteLine("\nSelect a cell to place a flag (line and column, example: 1A):");
+                    textManager.TextWriteLine("Insert [CCC] to cancel the action.", 'd');
+                }
+            }
+        }
+
+        public void RemoveFlag(char[,] viewBoard, char[,] gameBoard)
+        {
+            Console.WriteLine($"\nSelect a cell to remove a flag (line and column, example: 1A):");
+            textManager.TextWriteLine("Insert [CCC] to cancel the action.", 'd');
+
+            int[] coord = new int[2];
+
+            while (true)
+            {
+                string sCoord = Console.ReadLine();
+
+                if (sCoord.ToUpper() == "CCC")
+                {
+                    break;
+                }
+                else if (CheckCoordinates(sCoord))
+                {
+                    coord = ConvertCoordinates(sCoord);
+                    if (viewBoard[coord[0], coord[1]] == 'F')
+                    {
+                        viewBoard[coord[0], coord[1]] = ' ';
+                    }
+
+                    break;
+                }
+                else
+                {
+                    textManager.TextWriteLine("\n\n\n\nInvalid value.\n\n", 'r');
+
+                    boardPrinter.PrintBoard(viewBoard, false);
+                    boardPrinter.PrintGameInfo(viewBoard, gameBoard);
+
+                    Console.WriteLine("\nSelect a cell to remove a flag (line and column, example: 1A):");
                     textManager.TextWriteLine("Insert [CCC] to cancel the action.", 'd');
                 }
             }
